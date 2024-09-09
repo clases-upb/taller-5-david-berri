@@ -3,11 +3,18 @@
  */
 package taller5;
 
+import java.text.DecimalFormat;
 public class App {
     
     public static void main(String[] args) {
         
         try {
+            
+            System.out.println(aleatorio(3000));
+            System.out.println(Simular_ventas());
+            System.out.println(Calcular_empaque(2000));
+            System.out.println(Jugar_21(5));
+            
             
         } 
         
@@ -25,6 +32,24 @@ public class App {
         
     
     */ 
+    public static String aleatorio(int a){
+        try {
+            String mensaje = "";
+            int aleatorio = 0, repeticiones = 0;
+            if (a < 1000 || a > 9999) {
+                System.out.println("El número debe estar entre 1000 y 9999.");
+            }
+            do {
+                aleatorio = (int)(Math.random()*(9999-1000))+ 1000;
+                repeticiones++;
+            } while (aleatorio != a);
+
+            mensaje = "el numero de intentos para encontrar a " + a + " fue de: " + repeticiones;
+            return mensaje;
+        } catch (Exception e) {
+            return "error";
+        }
+    }
 
 
 
@@ -57,10 +82,43 @@ public class App {
             Investigue sobre la clase DecimalFormat para mostrar bien la salida. 
             import java.text.DecimalFormat;
             DecimalFormat form_pesos = new DecimalFormat("$#,###.00");
-
-        
       
     */
+
+
+    public static String Simular_ventas(){
+        try {
+            String  mensaje = "";
+            final int an = 3, meses = 12, max = 10000000;
+            int aleatorio = 0, total_an = 0;
+            DecimalFormat form_pesos = new DecimalFormat("$#,###,###.00");
+
+            for(int i = 1; i <= an; i++){
+                System.out.println("\naño " + i +"\n");
+                total_an = 0;
+                
+            for(int a = 1; a <= meses; a++) {
+                aleatorio = (int)(Math.random()*(max));
+                System.out.println(" ventas mes " + a + ":" + form_pesos.format(aleatorio) + "\n");
+                
+                total_an += aleatorio;
+                
+              }
+              
+              System.out.println(" el total de ventas del año "+ i + " es de " + total_an);
+
+             
+
+
+
+            }
+            
+            return mensaje;
+        } catch (Exception e) {
+            
+            return "error";
+        }
+    }
 
     
 
@@ -85,6 +143,50 @@ public class App {
 
 
     */
+    public static String Calcular_empaque(int bombillas) {
+        try {
+            final int bombillasPorCaja = 30;
+            final int cajasPorPallet = 16;
+            int sobrante = 0, i = 0, contador = 1;
+            String mensaje = "";
+            
+            int totalCajas = (int) Math.ceil((double) bombillas / bombillasPorCaja);
+            
+            int totalPallets = (int) Math.ceil((double) totalCajas / cajasPorPallet);
+            
+            int bombillasEmpacadas = totalCajas * bombillasPorCaja;
+            int bombillasNoEmpacadas = bombillasEmpacadas - bombillas;
+            System.out.println( "Para "+ bombillas +" bombillas, se necesitan "+ totalCajas +" cajas y " +totalPallets+ " pallets. Se quedan " +bombillasNoEmpacadas +" bombillas sin empacar. Se empacará así:");
+
+                for( i = 1; i <= totalPallets  ; i++){
+                    mensaje += "\n\nPallet "+  i  +"--> ";
+                    
+                    
+                        
+
+                    
+                    for(int a = 1; a <= cajasPorPallet && contador <= totalCajas ; a++ ){
+                       
+                        mensaje += "caja " + contador + " , ";
+                        contador++;
+                        if(a == cajasPorPallet - 1 && contador <= totalCajas){
+                            
+                            
+                    
+                    }
+                        }
+                        
+                        
+
+
+                }
+
+                
+            return mensaje;
+        } catch (Exception e) {
+            return "error";
+        }
+    }
 
 
 
@@ -111,6 +213,50 @@ public class App {
 
 
     */
+    public static String Jugar_21(int jugadores){
+        try {
+            String mensaje = "";
+            final byte juego = 21, nro_cartas = 3, lim_sup = 10, lim_inf = 1, jugadores_max = 6;
+            int aleatorio = 0;
+
+            if(jugadores < lim_inf || jugadores > jugadores_max){
+            System.out.println("cantidad de jugadores invalida");
+            }
+            else{
+            for (int i = 1; i <= jugadores; i++) {
+                int puntos = 0; // Puntaje del jugador
+             
+                // Sumar el valor de las cartas del jugador
+                for (int cartas = 1; cartas <= nro_cartas; cartas++) {
+                     aleatorio = (int)(Math.random()*(lim_sup) + lim_inf);
+                    puntos += aleatorio;
+                }
+                
+                if (puntos == juego) {
+                    mensaje += "Jugador " +i+ ", puntos " + puntos +" -- > juego perfecto\n" ;
+                    
+                } else if (puntos > juego) {
+                    mensaje += "Jugador " +i+ ", puntos " + puntos +" -- > se paso\n" ;
+                    
+                } else {
+                    mensaje += "Jugador " +i+ ", puntos " + puntos +" -- > faltaron puntos\n" ;
+                    
+                }
+                
+
+            }
+        }
+        
+            return mensaje;
+        } catch (Exception e) {
+            return "error";
+        }
+    }
+
+
+
+}
+
 
 
 
